@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import pastryhaven.finalproject.model.Customer;
-import pastryhaven.finalproject.repository.CustomerSpringDataJpaRepository;
+import pastryhaven.finalproject.repository.CustomerRepository;
 
 
 @Controller
 public class CustomerController {
 
     @Autowired
-    private CustomerSpringDataJpaRepository repository;
+    private CustomerRepository repository;
     
     @GetMapping("/customer")
     public String listCustomer(Model model) {
