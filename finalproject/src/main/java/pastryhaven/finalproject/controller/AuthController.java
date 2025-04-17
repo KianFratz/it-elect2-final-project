@@ -15,10 +15,6 @@ public class AuthController {
     public String viewRegister() {
     	return "register";
     }
-    
-    @GetMapping("/product")
-    public String viewProduct() {
-    	return "product";
-    }
+
 	
 }

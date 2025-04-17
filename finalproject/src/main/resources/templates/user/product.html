@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -31,40 +31,37 @@
     <section class="container mx-auto px-6 py-12">
         <div class="bg-white rounded-3xl shadow-lg p-8 md:p-12">
             <h2 class="text-3xl font-bold text-center text-pink-500 mb-8">Our Sweet Creations</h2>
-            
-            <!-- Product Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[65rem] mx-auto">
-                <!-- Product 1 -->
-                <div class="bg-white border border-pink-200 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="h-64 bg-pink-100 flex items-center justify-center">
-                        <img src="croissant.webp" alt="Strawberry Dream Cake" class="object-cover h-full w-full" />
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-pink-600">Croissant</h3>
-                        <p class="text-gray-600 mt-2">Delicate layers of vanilla sponge with fresh strawberry cream and topped with glazed berries.</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="text-2xl font-bold text-pink-500">$34.99</span>
-                            <button class="py-2 px-6 bg-pink-500 rounded-full text-white hover:bg-pink-700 transition-all duration-200">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Product 2 -->
-                <div class="bg-white border border-pink-200 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+            <!-- Product Cards Grid -->
+            <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[65rem] mx-auto" >
+                <!-- Single Card -->
+                <div th:each="product : ${products}" class="bg-white border border-pink-200 rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+
+                    <!-- Image Banner -->
                     <div class="h-64 bg-pink-100 flex items-center justify-center">
-                        <img src="croissant.webp" alt="Chocolate Truffle Delight" class="object-cover h-full w-full" />
+                        <img th:src="@{'/images/' + ${product.imageFileName}}"
+                             th:alt="${product.name}"
+                             class="object-cover h-full w-full" />
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-pink-600">Chocolate Truffle Delight</h3>
-                        <p class="text-gray-600 mt-2">Rich Belgian chocolate cake with silky ganache filling and decorated with chocolate curls.</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="text-2xl font-bold text-pink-500">$29.99</span>
-                            <button class="py-2 px-6 bg-pink-500 rounded-full text-white hover:bg-pink-700 transition-all duration-200">Add to Cart</button>
+
+                    <!-- Content Area -->
+                    <div class="p-6 space-y-4">
+                        <h3 th:text="${product.name}" class="text-2xl font-extrabold text-pink-600"></h3>
+                        <p th:text="${product.description}" class="text-gray-700"></p>
+                        <div class="flex items-center justify-between">
+                            <span th:text="${product.stock + ' in stock'}" class="inline-block bg-pink-100 text-pink-800 text-sm font-semibold px-3 py-1 rounded-full"></span>
+                            <span th:text="${product.price}" class="text-2xl font-bold text-pink-500"></span>
                         </div>
+                        <hr class="border-t-2 border-pink-200" />
+                        <button th:href="@{/user/add(id=${product.id})}"
+                                onclick="return confirm('Are you sure?')"
+                                class="w-full py-2 font-semibold rounded-full bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-colors duration-200">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
-               
             </div>
+
         </div>
     </section>
 
