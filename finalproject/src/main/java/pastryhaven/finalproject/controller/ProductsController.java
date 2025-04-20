@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pastryhaven.finalproject.model.Product;
 import pastryhaven.finalproject.model.ProductDto;
-import pastryhaven.finalproject.service.ProductsRepository;
+import pastryhaven.finalproject.repository.ProductsRepository;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -84,7 +84,7 @@ public class ProductsController {
     }
 
     @GetMapping("/edit")
-    public String showEditPage(Model model, @RequestParam int id) {
+    public String showEditPage(Model model, @RequestParam Long id) {
 
         try {
             Product product = productsRepository.findById(id).get();
@@ -109,7 +109,7 @@ public class ProductsController {
     }
 
     @PostMapping("/edit")
-    public String updateProduct(Model model, @RequestParam int id,
+    public String updateProduct(Model model, @RequestParam Long id,
                                 @Valid @ModelAttribute ProductDto productDto,
                                 BindingResult result) {
 
@@ -161,7 +161,7 @@ public class ProductsController {
     }
 
     @GetMapping("/delete")
-    public String deleteProduct(@RequestParam int id) {
+    public String deleteProduct(@RequestParam Long id) {
 
         try {
             Product product = productsRepository.findById(id).get();

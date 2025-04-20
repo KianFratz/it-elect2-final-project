@@ -3,10 +3,7 @@ package pastryhaven.finalproject.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 import pastryhaven.finalproject.model.Customer;
@@ -14,12 +11,13 @@ import pastryhaven.finalproject.repository.CustomerRepository;
 
 
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerRepository repository;
     
-    @GetMapping("/customer")
+    @GetMapping({""})
     public String listCustomer(Model model) {
         model.addAttribute("customer", repository.findAll());
         return "customer-list";
@@ -68,5 +66,7 @@ public class CustomerController {
         repository.deleteById(id);
         return "redirect:/customer";  // Redirect ensures page refreshes
     }
+
+
 }
 

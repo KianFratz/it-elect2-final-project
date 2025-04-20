@@ -6,16 +6,18 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+
 public class ProductDto {
 
     @NotBlank(message = "Name is required")
     private String name;
 
     @Min(value = 0, message = "Stock cannot be negative")
-    private int stock;
+    private Integer stock;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
-    private double price;
+    private Double price;
 
     @NotBlank(message = "Description is required")
     private String description;
@@ -34,15 +36,15 @@ public class ProductDto {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

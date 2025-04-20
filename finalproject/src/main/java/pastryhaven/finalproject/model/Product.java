@@ -2,27 +2,29 @@ package pastryhaven.finalproject.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long product_id;
 
     private String name;
-    private double price;
-    private int stock;
+    private Double price;
+    private Integer stock;
     private String imageFileName;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return product_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Long id) {
+        this.product_id = product_id;
     }
 
     public String getName() {
@@ -33,11 +35,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
