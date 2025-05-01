@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>PastryHaven</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
-    <style>
-        /* Custom class to fix the size of the image */
-        .fixed-size-img {
-          width: 200px;      /* set a fixed width, adjust as needed */
-          height: 200px;     /* set a fixed height, adjust as needed */
-          object-fit: cover; /* crops the image, maintaining its aspect ratio */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>PastryHaven</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container my-4">
-    <h1 class="text-center mb-4">Pastries</h1>
+<body class="bg-pink-50 text-gray-800">
 
-    <!-- "Create Product" button, aligned to the right -->
-    <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-primary" href="/products/create">Create Product</a>
+<!-- Header -->
+<nav class="bg-white shadow-md py-4 mb-6">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <a href="/" class="text-pink-500 text-2xl font-bold">PastryHaven</a>
+    <div class="space-x-6 hidden md:flex">
+      <a href="/user/products" class="hover:text-pink-500 transition">Products</a>
+      <a href="/cart" class="hover:text-pink-500 transition">Cart</a>
+      <a href="/customer/aboutus" class="hover:text-pink-500 transition">About Us</a>
     </div>
+  </div>
+</nav>
 
-    <!-- Loop over each product and display as a horizontal card -->
-    <div th:each="product : ${products}" class="mb-3">
-        <div class="card" style="max-width: 700px; margin: 0 auto;">
-            <div class="row g-0">
-                <!-- Fixed-size image on the left -->
-                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                    <img th:src="@{'/images/' + ${product.imageFileName}}"
-                         class="fixed-size-img rounded-start"
-                         alt="Product Image">
-                </div>
-                <!-- Card Content -->
-                <div class="col-md-8">
-                    <div class="card-body d-flex flex-column justify-content-between h-100">
-                        <div>
-                            <h5 class="card-title" th:text="${product.name}"></h5>
-                            <p class="card-text mb-1">
-                                <strong>Description:</strong>
-                                <span th:text="${product.description}"></span>
-                            </p>
-                            <p class="card-text">
-                                <strong>Available:</strong>
-                                <span th:text="${product.stock}"></span>
-                                <br/>
-                                <strong>Price:</strong>
-                                <span th:text="${product.price} + '$'"></span>
-                            </p>
-                        </div>
-                        <div class="mt-3">
-                            <a class="btn btn-primary btn-sm me-1" th:href="@{/products/edit(id=${product.id})}">
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm" th:href="@{/products/delete(id=${product.id})}"
-                               onclick="return confirm('Are you sure?')">
-                                Delete
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Page Content -->
+<div class="container mx-auto px-6 mb-12">
+  <h1 class="text-4xl font-bold text-center text-pink-500 mb-8">Pastries</h1>
+
+  <!-- Create Product Button -->
+  <div class="flex justify-end mb-6">
+    <a href="/products/create"
+       class="bg-pink-500 text-white px-5 py-2 rounded-full shadow hover:bg-pink-600 transition">
+      + Create Product
+    </a>
+  </div>
+
+  <!-- Product Cards -->
+  <div th:each="product : ${products}" class="mb-6">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto flex flex-col md:flex-row">
+      <!-- Image -->
+      <div class="md:w-1/3 flex items-center justify-center bg-gray-100">
+        <img th:src="@{'/images/' + ${product.imageFileName}}"
+             alt="Product Image"
+             class="w-48 h-48 object-cover rounded-lg my-4" />
+      </div>
+      <!-- Details -->
+      <div class="md:w-2/3 p-6 flex flex-col justify-between">
+        <div>
+          <h5 class="text-2xl font-semibold text-pink-600 mb-2" th:text="${product.name}">Product Name</h5>
+          <p class="mb-2 text-gray-700">
+            <strong>Description:</strong>
+            <span th:text="${product.description}"></span>
+          </p>
+          <p class="text-gray-700">
+            <strong>Available:</strong>
+            <span th:text="${product.stock}"></span><br/>
+            <strong>Price:</strong>
+            <span th:text="${product.price} + '$'"></span>
+          </p>
         </div>
+        <!-- Action Buttons -->
+        <div class="mt-4 flex space-x-3">
+          <a th:href="@{/products/edit(id=${product.id})}"
+             class="bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition">
+            Edit
+          </a>
+          <a th:href="@{/products/delete(id=${product.id})}"
+             onclick="return confirm('Are you sure?')"
+             class="bg-red-500 text-white px-4 py-2 rounded-full text-sm hover:bg-red-600 transition">
+            Delete
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+<!-- Footer -->
+<footer class="bg-pink-500 text-white py-8 mt-16">
+  <div class="container mx-auto px-6 text-center">
+    <p class="text-lg font-semibold">PastryHaven &mdash; Where sweetness meets style 🍰</p>
+    <p class="mt-2">&copy; 2025 PastryHaven. All rights reserved.</p>
+  </div>
+</footer>
+
 </body>
 </html>
